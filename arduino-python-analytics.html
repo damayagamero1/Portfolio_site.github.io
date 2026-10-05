@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Arduino to Python Analytics | Daniel Amaya Gamero</title><meta name="description" content="Python code for importing recorded battery measurements, plotting voltage averages with standard deviation error bars, and exporting raw data to Excel."><meta name="theme-color" content="#1e1e1e"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231e1e1e'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-family='Georgia' font-size='18'%3ED%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="mro.css"><script src="script.js" defer></script><link rel="stylesheet" href="pipeline.css"><link rel="stylesheet" href="analytics.css"></head>
+<body class="analytics-page"><a class="skip-link" href="#analysis">Skip to code description</a><header class="project-header"><div class="project-header-inner"><nav class="project-navigation" aria-label="Project navigation"><a href="index.html#projects">Back to portfolio</a><div><a href="#analysis">Description</a><a href="#code">Code</a></div></nav><p class="project-eyebrow">DANIEL AMAYA GAMERO / DATA ANALYSIS</p><h1>Arduino to Python<br>Analytics Graphing App</h1><p class="project-summary">A Python script that turns recorded battery voltage measurements into a graph and an Excel workbook. It reads a text file, calculates average voltage for each group of 1,000 measurements, and shows how much the readings vary with standard deviation error bars.</p><p class="project-detail">The supplied example analyzes a copper–brass battery test. Pandas handles the data, and Matplotlib displays the graph. This script works with measurements already saved in a file.</p></div></header>
+<main class="project-content"><section id="analysis" aria-labelledby="analysis-title"><div class="project-section-heading"><h2 id="analysis-title">What the code does</h2><p>Read the measurements, summarize them, visualize their variation, and export the data.</p></div><ol class="pipeline-stages"><li><span class="screen-number">01</span><h3>Read the test file</h3><p>The script loads a text file with two columns: time in milliseconds and voltage in volts. Spaces or tabs separate the values. It also creates a time-in-seconds column by dividing the original time by 1,000.</p></li><li><span class="screen-number">02</span><h3>Group 1,000 readings</h3><p>Rows are grouped by their position: the first 1,000 rows form one group, the next 1,000 form another. Each group produces a mean time, mean voltage, and sample standard deviation of voltage. The final group can contain fewer than 1,000 readings.</p></li><li><span class="screen-number">03</span><h3>Plot the averages</h3><p>Blue dots show mean voltage at each group's mean time in milliseconds. Red error bars extend one standard deviation above and below each average, showing the spread of readings within the group. The points are not connected by lines.</p></li><li><span class="screen-number">04</span><h3>Export to Excel</h3><p>The workbook keeps every original measurement, with time in milliseconds, time in seconds, and voltage, on a sheet named “Voltage Data.” The grouped summary is used for the graph and is not written to the workbook.</p></li></ol><div class="analysis-note"><h3>Reading the results</h3><p>Groups contain 1,000 measurements, rather than fixed 1,000-millisecond intervals. The graph uses averaged time in milliseconds; the seconds column is included in the export. The error bars describe variation within each group, not a confidence interval. In a typical desktop run, closing the graph window lets the script continue to the Excel export.</p></div></section>
+<section class="poster-section" id="graph" aria-labelledby="graph-title"><div class="project-section-heading"><h2 id="graph-title">Voltage graph</h2><p>Average voltage for each group of 1,000 measurements. Blue points show the averages; red error bars show ± one standard deviation.</p></div><button class="image-link graph-preview" data-image="assets/battery-voltage-error-bars.png" data-title="Average Voltage Every 1,000 Measurements" aria-label="View the voltage graph with error bars at full size"><img src="assets/battery-voltage-error-bars.png" alt="Graph of average voltage versus time in milliseconds, with blue measurement averages and red standard deviation error bars. Early readings vary widely before settling near 0.58 volts." loading="lazy"></button><p class="poster-hint">Select the graph to view it at full size.</p></section><section class="poster-section" aria-labelledby="image-title"><div class="project-section-heading"><h2 id="image-title">Code preview</h2><p>Select the image to view it at full size.</p></div><button class="image-link code-preview" data-image="assets/arduino-python-analytics.png" data-title="Arduino to Python — Analytics Code Preview" aria-label="View the supplied code screenshot at full size"><img src="assets/arduino-python-analytics.png" alt="Supplied screenshot of the Python battery analysis code, showing data import, grouping, and error bar plotting" loading="lazy"></button></section>
+<section class="code-section" id="code" aria-labelledby="code-title"><div class="project-section-heading"><h2 id="code-title">The Python code</h2><p>The complete script, including graph labels and the Excel export.</p></div><pre tabindex="0" aria-label="Complete Python analysis script"><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+input_file = &quot;CopperBrassBattery_Test_09-23-2026-10-25-00.txt&quot;
+output_file = &quot;CopperBrassBattery_Test_09-23-2026-10-25-00.xlsx&quot;
+
+# Read the two columns separated by tabs or spaces
+data = pd.read_csv(
+    input_file,
+    sep=r&quot;\s+&quot;,
+    names=[&quot;Time (ms)&quot;, &quot;Voltage (V)&quot;],
+    engine=&quot;python&quot;
+)
+
+# Convert milliseconds into seconds
+data[&quot;Time (seconds)&quot;] = data[&quot;Time (ms)&quot;] / 1000
+group = data.index // 1000
+
+summary = data.groupby(group).agg(
+    average_time=(&quot;Time (ms)&quot;, &quot;mean&quot;),
+    average_voltage=(&quot;Voltage (V)&quot;, &quot;mean&quot;),
+    voltage_std=(&quot;Voltage (V)&quot;, &quot;std&quot;)
+)
+
+plt.errorbar(
+    summary[&quot;average_time&quot;],
+    summary[&quot;average_voltage&quot;],
+    yerr=summary[&quot;voltage_std&quot;],
+    fmt=&quot;o&quot;,           # Scatter points without connecting lines
+    markersize=5,
+    capsize=4,         # Horizontal caps on error bars
+    color=&quot;blue&quot;,
+    ecolor=&quot;red&quot;,      # Error-bar color
+    elinewidth=1,
+    label=&quot;Average voltage ± standard deviation&quot;
+)
+
+plt.xlabel(&quot;Time (ms)&quot;)
+plt.ylabel(&quot;Average Voltage (V)&quot;)
+plt.title(&quot;Average Voltage Every 1000 Measurements&quot;)
+plt.grid(alpha=0.3)
+plt.legend()
+plt.show()
+# Put the columns in a convenient order
+data = data[[&quot;Time (ms)&quot;, &quot;Time (seconds)&quot;, &quot;Voltage (V)&quot;]]
+
+# Save as an Excel workbook
+data.to_excel(output_file, index=False, sheet_name=&quot;Voltage Data&quot;)
+
+print(f&quot;Excel file created: {output_file}&quot;)</code></pre></section><footer class="project-footer"><a href="index.html#projects">Back to projects</a><a href="index.html#contact">Contact Daniel</a></footer></main><dialog id="image-viewer" aria-labelledby="viewer-title"><div class="viewer-toolbar"><h2 id="viewer-title"></h2><button id="close-viewer" aria-label="Close image viewer">Close <span aria-hidden="true">×</span></button></div><div class="viewer-body"><img id="viewer-image" alt=""></div><a id="open-image" target="_blank" rel="noopener">Open full-size image</a></dialog>
+</body></html>

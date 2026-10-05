@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Daniel Alfredo Amaya Gamero's portfolio: computer science, research presentations, and software projects.">
+<meta name="theme-color" content="#1e1e1e">
+<title>Daniel Amaya Gamero | Portfolio</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231e1e1e'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-family='Georgia' font-size='18'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
+<script src="phone-contact.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#about">Skip to content</a>
+<main>
+<section class="home" id="home" aria-label="Portfolio home">
+<div class="home-inner">
+<div class="portrait-column"><h1>DANIEL A AMAYA GAMERO</h1><img class="portrait" src="assets/portrait.jpeg" alt="Daniel Amaya Gamero seated for a portrait" fetchpriority="high"></div>
+<nav class="main-nav" aria-label="Main navigation">
+<a href="#about"><span>About Me</span><small>01</small></a>
+<a href="#papers"><span>Papers</span><small>02</small></a>
+<a href="#projects"><span>Projects</span><small>03</small></a>
+<a href="#contact"><span>Contact</span><small>04</small></a>
+</nav>
+</div>
+</section>
+<section class="about" id="about" aria-labelledby="about-title">
+<button class="resume-image image-link" data-image="assets/resume.png" data-title="Daniel Amaya Gamero — Résumé" aria-label="View Daniel's résumé at full size"><img src="assets/resume.png" alt="Daniel Amaya Gamero's résumé" loading="lazy"></button>
+<div class="about-copy"><div class="section-heading"><h2 id="about-title">About Me</h2><a href="#home" aria-label="Back to home">01 / Home</a></div>
+<p>My name is Daniel Alfredo Amaya Gamero. I'm an undergraduate student at California State University, Dominguez Hills, and a proud naturalized citizen of the United States, originally from El Salvador. I'm pursuing a bachelor's degree in computer science and looking for the opportunity to become a PhD student in data science.</p>
+</div>
+</section>
+<section class="gallery" id="papers" aria-labelledby="papers-title">
+<div class="section-heading gallery-heading"><h2 id="papers-title">Papers</h2><a href="#home" aria-label="Back to home">02 / Home</a></div>
+<div class="card-grid">
+<article><button class="image-link" data-image="assets/research-presentation.png" data-title="Student Research Conference Presentation" aria-label="View Student Research Conference Presentation"><img src="assets/research-presentation.png" alt="Research conference presentation about electroplated copper and biochar-coated electrochemical double-layer capacitors" loading="lazy"></button><h3>Student Research<br>Conference<br>Presentation</h3></article>
+<article><a class="image-link project-page-link" href="raspberry-pi-pipeline.html" aria-label="Explore Raspberry Pi Cluster SSH Pipeline Poster"><img src="assets/cluster-poster.png" alt="Research poster showing automated analysis with Arduinos and Raspberry Pi" loading="lazy"></a><h3>Raspberry Pi Cluster<br>SSH Pipeline Poster</h3></article>
+<article><button class="image-link" data-image="assets/analysis-code.png" data-title="Daylight Circuit Analysis" aria-label="View daylight circuit analysis code"><img src="assets/analysis-code.png" alt="Python code for circuit analysis and scatter plots" loading="lazy"></button><h3>Code for the analysis<br>of a daylight circuit<br>with integrated<br>scatter plot graphing</h3></article>
+</div>
+</section>
+<section class="gallery" id="projects" aria-labelledby="projects-title">
+<div class="section-heading gallery-heading"><h2 id="projects-title">Projects</h2><a href="#home" aria-label="Back to home">03 / Home</a></div>
+<div class="card-grid">
+<article><a class="image-link project-page-link" href="medical-record-organizer.html" aria-label="Explore Medical Record Organizer"><img src="assets/medical-record-organizer.png" alt="Medical Record Organizer billing dashboard" loading="lazy"></a><h3>Medical Record<br>Organizer</h3></article>
+<article><a class="image-link project-page-link" href="raspberry-pi-pipeline.html" aria-label="Explore Raspberry Pi Cluster SSH Pipeline"><img src="assets/raspberry-pi-cluster.jpeg" alt="Raspberry Pi cluster and monitoring workstation" loading="lazy"></a><h3>Raspberry Pi Cluster<br>SSH Pipeline</h3></article>
+<article><a class="image-link project-page-link" href="arduino-python-analytics.html" aria-label="Explore Arduino to Python Analytics Graphing App"><img src="assets/arduino-python-analytics.png" alt="Python code that averages battery voltage measurements and plots standard deviation error bars" loading="lazy"></a><h3>Arduino to Python<br>Analytics Graphing App</h3></article>
+</div>
+</section>
+<section class="contact" id="contact" aria-labelledby="contact-title">
+<div class="contact-inner"><h2 id="contact-title">CONTACT ME AND LET'S SCHEDULE A CHAT.</h2>
+<div class="contact-grid"><div><h3>PHONE</h3><a id="phone-contact" href="assets/daniel-amaya-gamero.vcf" aria-label="Save Daniel Amaya Gamero to contacts">(323) 327-5769</a><p id="phone-action-status" class="phone-action-status" role="status" aria-live="polite">Save contact</p></div><div><h3>EMAIL</h3><a href="mailto:danielamaya2242@gmail.com">danielamaya2242@gmail.com</a></div><div><h3>SOCIAL</h3><div class="social-links"><a href="https://github.com/damayagamero1" target="_blank" rel="noopener noreferrer" aria-label="Daniel on GitHub (opens in a new tab)">GitHub</a><a href="https://www.linkedin.com/in/daniel-amaya-b04494274/" target="_blank" rel="noopener noreferrer" aria-label="Daniel on LinkedIn (opens in a new tab)">LinkedIn</a></div></div></div>
+<a class="back-home" href="#home">Back to home</a>
+</div>
+</section>
+</main>
+<dialog id="image-viewer" aria-labelledby="viewer-title"><div class="viewer-toolbar"><h2 id="viewer-title"></h2><button id="close-viewer" aria-label="Close image viewer">Close <span aria-hidden="true">×</span></button></div><div class="viewer-body"><img id="viewer-image" alt=""></div><a id="open-image" target="_blank" rel="noopener">Open full-size image</a></dialog>
+</body>
+</html>
